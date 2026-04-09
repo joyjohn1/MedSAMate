@@ -150,18 +150,18 @@ def LevelAndWidth(self):
 def polar360(x_input, y_input, x_ori=0, y_ori=0):
     x = x_input - x_ori
     y = y_input - y_ori
-    rdius = math.hypot(y, x)
+    radius = math.hypot(y, x)
     theta = math.degrees(math.atan2(x, y)) + (x < 0) * 360
-    return rdius, theta
+    return radius, theta
 
 
 def rotation_shape(coords_list, coords_origin, rotation_angle):
     rotation_coords_list = []
     for i in range(len(coords_list)):
         coords = coords_list[i]
-        rdius, theta = polar360(coords[0], coords[1], coords_origin[0], coords_origin[1])
-        x_r = np.int32(coords_origin[0] + rdius * math.sin((theta + rotation_angle) / 180 * math.pi))
-        y_r = np.int32(coords_origin[1] + rdius * math.cos((theta + rotation_angle) / 180 * math.pi))
+        radius, theta = polar360(coords[0], coords[1], coords_origin[0], coords_origin[1])
+        x_r = np.int32(coords_origin[0] + radius * math.sin((theta + rotation_angle) / 180 * math.pi))
+        y_r = np.int32(coords_origin[1] + radius * math.cos((theta + rotation_angle) / 180 * math.pi))
         rotation_coords_list.append([x_r, y_r])
 
     return rotation_coords_list
