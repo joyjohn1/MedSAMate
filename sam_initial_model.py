@@ -140,8 +140,7 @@ def Save_BIM(Img, output_file, input_file=None):
 
 def LevelAndWidth(self):
     scalarRange = self.reader.GetOutput().GetScalarRange()
-    print('scalarRange', scalarRange)
-    if (scalarRange[0] < -1e10) | (scalarRange[0] > -1e10) | (scalarRange[1] < -1e10) | (scalarRange[1] > -1e10):
+    if not np.isfinite(scalarRange[0]) or not np.isfinite(scalarRange[1]):
         scalarRange = (0, 4095)
     window = scalarRange[1] - scalarRange[0]
     level = (scalarRange[0] + scalarRange[1]) / 5.0
