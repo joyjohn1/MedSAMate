@@ -267,16 +267,10 @@ def drawimplant_coordinate(drawpaper_size, drawimplant_len, drawimplant_width):
     return coords_list
 
 
-def MaxMin_normalization_Intensity(I, Max_Minval, Min_Maxval):
+def MaxMin_normalization_Intensity(I, max_min_val, min_max_val):
     """最大最小值归一化"""
-    # ======================
-    # I: HxW
-    # ======================
-    Ic = np.where(I > Min_Maxval, Min_Maxval, I)  # 截断上限
-    Ic = np.where(Ic < Max_Minval, Max_Minval, Ic)  # 截断下限
-    II = (Ic - Max_Minval) / (Min_Maxval - Max_Minval + 0.00001)  # 归一化到[0，1]
-
-    return II
+    Ic = np.clip(I, max_min_val, min_max_val)
+    return (Ic - max_min_val) / (min_max_val - max_min_val + 1e-6)
 
 
 class Ui_MainWindow(QObject):
